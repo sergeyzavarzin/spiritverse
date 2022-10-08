@@ -5,13 +5,14 @@ import {
   Wallet,
   connectorsForWallets,
   RainbowKitProvider,
+  Chain,
 } from "@rainbow-me/rainbowkit";
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { MagicConnector } from "@everipedia/wagmi-magic-connector";
 
-export const rainbowMagicConnector = ({ chains }: any): Wallet => ({
+export const rainbowMagicConnector = (chains: Chain[]): Wallet => ({
   id: "magic",
   name: "Magic",
   iconUrl: "https://svgshare.com/i/iJK.svg",
@@ -24,12 +25,16 @@ export const rainbowMagicConnector = ({ chains }: any): Wallet => ({
       );
     }
     const connector = new MagicConnector({
-      chains: chains,
+      chains,
       options: {
         apiKey: process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY!,
-        oauthOptions: {
-          providers: ["google", "twitter", "discord"],
-        },
+        // customLogo: '/',
+        // oauthOptions: {
+        //   providers: ["google", "twitter", "discord"],
+        // },
+        // additionalMagicOptions: {
+        // testMode: process.env.NODE_ENV === "development",
+        // },
         //...Other options (check out full API below)
       },
     });
@@ -40,17 +45,14 @@ export const rainbowMagicConnector = ({ chains }: any): Wallet => ({
 });
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [chain.polygon],
   [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
 );
 
 const connectors = connectorsForWallets([
   {
     groupName: "Recommended",
-    wallets: [
-      //... other wallets connectors
-      rainbowMagicConnector({ chains }),
-    ],
+    wallets: [rainbowMagicConnector(chains)],
   },
 ]);
 
