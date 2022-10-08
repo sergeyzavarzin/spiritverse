@@ -2,6 +2,7 @@ import "../src/styles/globals.css";
 import { AppProps } from "next/app";
 import "@rainbow-me/rainbowkit/styles.css";
 import {
+  Wallet,
   connectorsForWallets,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
@@ -9,7 +10,6 @@ import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { MagicConnector } from "@everipedia/wagmi-magic-connector";
-import { Wallet } from "@rainbow-me/rainbowkit/dist/wallets/Wallet";
 
 export const rainbowMagicConnector = ({ chains }: any): Wallet => ({
   id: "magic",
