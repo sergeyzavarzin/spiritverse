@@ -16,7 +16,7 @@ export const rainbowMagicConnector = ({ chains }: any): Wallet => ({
   name: "Magic",
   iconUrl: "https://svgshare.com/i/iJK.svg",
   iconBackground: "#fff",
-  // TODO: fix any?
+  // TODO: fix any
   createConnector: (): any => {
     if (!process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY?.length) {
       console.error(
