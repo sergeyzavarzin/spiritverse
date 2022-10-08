@@ -18,10 +18,18 @@ export const rainbowMagicConnector = ({ chains }: any): Wallet => ({
   iconBackground: "#fff",
   // TODO: fix any
   createConnector: (): any => {
+    if (!process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY?.length) {
+      console.error(
+        `Can't access required scope vars: process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY: ${process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY}`
+      );
+    }
     const connector = new MagicConnector({
       chains: chains,
       options: {
-        apiKey: "YOUR_MAGIC_API_KEY",
+        apiKey: process.env.NEXT_PUBLIC_MAGIC_LINK_API_KEY!,
+        oauthOptions: {
+          providers: ["google", "twitter", "discord"],
+        },
         //...Other options (check out full API below)
       },
     });
