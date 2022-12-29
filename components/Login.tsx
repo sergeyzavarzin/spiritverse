@@ -4,7 +4,7 @@ import { useSupabase } from './SupabaseProvider';
 
 export default function Login() {
   const { supabase } = useSupabase();
-
+  
   // const handleEmailLogin = async () => {
   //   const { error } = await supabase.auth.signInWithPassword({
   //     email: 'jon@supabase.com',
