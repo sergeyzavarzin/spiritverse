@@ -17,10 +17,10 @@ export const BattleButton: FC<Props> = () => {
         state !== 'active' && 'justify-center'
       )}
       onClick={startBattle}
-      disabled={hero.energy <= 0}
+      disabled={hero?.energy <= 0}
     >
       {(state === 'inactive' || state === 'win' || state === 'loose') && (
-        <span>{hero.energy > 0 ? 'начать сражение' : 'недостаточно энергии'}</span>
+        <span>{hero?.energy > 0 ? 'начать сражение' : 'недостаточно энергии'}</span>
       )}
       {state === 'searching' && 'идет поиск соперника'}
       {state === 'active' && (

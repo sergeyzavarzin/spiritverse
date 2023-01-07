@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
 import { Badge } from './Badge';
@@ -12,15 +12,20 @@ import { Power } from './icons/Power';
 import { Speed } from './icons/Speed';
 import { Health } from './icons/Health';
 import { CrossCircle } from './icons/CrossCircle';
+import type { Database } from '../types/supabase';
 
 type Props = {
-  isRival?: boolean;
+  characters?: Array<Database['public']['Tables']['characters']['Row']> | null
 };
 
-export const Hero: FC<Props> = (props) => {
-  const { isRival } = props;
+export const Hero: FC<Props> = ({ characters }) => {
+  const isRival = Array.isArray(characters);
 
-  const { hero, rival, step, state, reset } = useBattle();
+  const { hero, rival, step, state, reset, setHero } = useBattle();
+
+  useEffect(() => {
+    setHero(characters?.[0] as any)
+  }, [characters, setHero])
 
   const currentHero = isRival ? rival : hero;
 

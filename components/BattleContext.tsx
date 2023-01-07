@@ -1,18 +1,12 @@
 'use client';
 import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
+import { Database } from '../types/supabase';
 
 export type BattleState = 'inactive' | 'searching' | 'active' | 'win' | 'loose';
 
-export type HeroParams = {
-  id: string;
-  name: string;
-  image: string;
-  crystal: number;
-  power: number;
-  speed: number;
-  health: number;
-  energy: number;
-};
+export type HeroParams = Database['public']['Tables']['characters']['Row'] & {
+  crystal: number; // TODO: refactor types
+}
 
 type BattleProcess = {
   hero: number;
@@ -31,16 +25,18 @@ type BattleContextType = {
   reset: () => void;
 };
 
-const mockHero: HeroParams = {
-  id: '1',
-  name: 'SPIRITGREEN',
-  image: '/spiritgreen.png',
-  crystal: 6,
-  power: 15,
-  speed: 255,
-  health: 30,
-  energy: 3,
-};
+// const mockHero: HeroParams = {
+//   id: '1',
+//   name: 'SPIRITGREEN',
+//   image: '/spiritgreen.png',
+//   crystal: 6,
+//   power: 15,
+//   speed: 255,
+//   health: 30,
+//   energy: 3,
+//   created_at: '0',
+//   user_id: '0'
+// };
 
 const defaultValue: BattleContextType = {
   startBattle: () => Promise.resolve(),
@@ -48,7 +44,7 @@ const defaultValue: BattleContextType = {
   step: 0,
   process: { hero: 0, rival: 0 },
   rival: undefined,
-  hero: mockHero,
+  hero: {} as HeroParams,
   setHero: () => {},
   setRival: () => {},
   reset: () => {},
