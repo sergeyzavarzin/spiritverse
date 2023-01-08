@@ -1,9 +1,12 @@
 import { FC, useMemo } from 'react';
 import cn from 'classnames';
 import { useBattle } from './BattleContext';
+import { useCrystalBalance } from '../hooks/useCrystalBalance';
 
 export const BattleMeter: FC = () => {
-  const { state, step, hero, rival } = useBattle();
+  const { state, step, character, rival } = useBattle();
+
+  const { data: crystals } = useCrystalBalance();
 
   const title = useMemo(() => {
     switch (step) {
@@ -23,17 +26,17 @@ export const BattleMeter: FC = () => {
   const value = useMemo(() => {
     switch (step) {
       case 1:
-        return [hero.health, rival?.health];
+        return [character?.health, rival?.health];
       case 2:
-        return [hero.speed, rival?.speed];
+        return [character?.speed, rival?.speed];
       case 3:
-        return [hero.power, rival?.power];
+        return [character?.power, rival?.power];
       case 4:
-        return [hero.crystal, rival?.crystal];
+        return [character?.crystals, rival?.crystals];
       default:
         return [0, 0];
     }
-  }, [step, rival, hero]);
+  }, [step, rival, character]);
 
   if (state !== 'active' || step < 1 || step > 4) {
     return null;

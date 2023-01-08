@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, use } from 'react';
 import cn from 'classnames';
 import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
 
@@ -20,6 +20,11 @@ export type TypedSupabaseClient = SupabaseClient<Database>;
 // do not cache this layout
 export const revalidate = 0;
 
+// const getUserCharacters = async () => {
+//   const response = await fetch(`${process.env.BASE_API_URL}/api/getUserCharacters`);
+//   return response.json();
+// }
+
 export default async function RootLayout({ children }: PropsWithChildren) {
   const supabase = createServerClient();
 
@@ -27,12 +32,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     data: { session }
   } = await supabase.auth.getSession();
 
-  const { data: userCharacters } = await supabase
-    .from('characters')
-    .select('id, name, power, speed, health, energy, image')
-    .eq('user_id', session?.user.id);
-
-  console.log(userCharacters)
+  // const userCharacters = await getUserCharacters(); // TODO: get characters from ssr
 
   return (
     <html lang="en">
@@ -45,7 +45,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
               <BattleContextProvider>
                 <Header />
                 <main className="relative grid grid-cols-2 gap-8">
-                  <Hero characters={userCharacters as any} />
+                  <Hero />
                   {children}
                   <BattleButton />
                 </main>

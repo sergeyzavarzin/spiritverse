@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
 import { Badge } from './Badge';
@@ -12,22 +12,21 @@ import { Power } from './icons/Power';
 import { Speed } from './icons/Speed';
 import { Health } from './icons/Health';
 import { CrossCircle } from './icons/CrossCircle';
-import type { Database } from '../types/supabase';
+import { useCrystalBalance } from '../hooks/useCrystalBalance';
+import { useUserCharacters } from '../hooks/useUserCharacters';
 
 type Props = {
-  characters?: Array<Database['public']['Tables']['characters']['Row']> | null
+  isRival?: boolean;
 };
 
-export const Hero: FC<Props> = ({ characters }) => {
-  const isRival = Array.isArray(characters);
+export const Hero: FC<Props> = ({ isRival }) => {
+  const { character, rival, step, state, reset } = useBattle();
 
-  const { hero, rival, step, state, reset, setHero } = useBattle();
+  const { data: crystals } = useCrystalBalance();
 
-  useEffect(() => {
-    setHero(characters?.[0] as any)
-  }, [characters, setHero])
+  const { data: characters, isFetching } = useUserCharacters();
 
-  const currentHero = isRival ? rival : hero;
+  const currentHero = isRival ? rival : character;
 
   return (
     <div
@@ -43,10 +42,10 @@ export const Hero: FC<Props> = ({ characters }) => {
     >
       {state === 'inactive' && !isRival && (
         <div className="absolute top-6 left-6">
-          <div className="mb-2.5 rounded-md bg-[#919eab80] py-1 text-center text-sm">01/20</div>
+          <div className="mb-2.5 rounded-md bg-[#919eab80] py-1 text-center text-sm">{!isFetching && `1/${characters?.length}`}</div>
           <div className="flex items-center gap-2.5">
             <div className="h-8 w-8 rounded-2xl bg-paramYellow"></div>
-            <div className="text-4xl font-bold text-paramYellow">{hero.energy}</div>
+            <div className="text-4xl font-bold text-paramYellow">{character?.energy ?? ''}</div>
           </div>
         </div>
       )}
@@ -71,7 +70,7 @@ export const Hero: FC<Props> = ({ characters }) => {
           <div className="font-thin">Кристалы</div>
           <div className="flex items-center gap-1.5">
             <Crystal className="h-6 w-6 rounded-2xl bg-paramGreen" />
-            <div className="text-2xl font-bold">{currentHero?.crystal ?? '?'}</div>
+            <div className="text-2xl font-bold">{!isRival ? crystals : rival?.crystals  ?? '0'}</div>
           </div>
         </div>
         <div
@@ -131,7 +130,7 @@ export const Hero: FC<Props> = ({ characters }) => {
             {state === 'win' && <div className="text-4xl font-bold">+0.1 SPRT</div>}
             <div className="flex items-center gap-2.5">
               <Power className="h-8 w-8 rounded-2xl bg-paramYellow" />
-              <span className="text-4xl font-bold">{hero.energy}</span>
+              <span className="text-4xl font-bold">{character?.energy ?? ''}</span>
             </div>
           </div>
         </>

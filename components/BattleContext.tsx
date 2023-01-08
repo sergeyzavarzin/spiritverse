@@ -1,52 +1,36 @@
 'use client';
+
 import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useContext, useState } from 'react';
-import { Database } from '../types/supabase';
+import { Character } from '../types/battle';
+import { useUserCharacters } from '../hooks/useUserCharacters';
+import { Battle, BattleScores } from '../utils/battle';
 
 export type BattleState = 'inactive' | 'searching' | 'active' | 'win' | 'loose';
-
-export type HeroParams = Database['public']['Tables']['characters']['Row'] & {
-  crystal: number; // TODO: refactor types
-}
-
-type BattleProcess = {
-  hero: number;
-  rival: number;
-};
 
 type BattleContextType = {
   startBattle: () => Promise<void>;
   state: BattleState;
   step: number;
-  process: BattleProcess;
-  hero: HeroParams;
-  rival?: HeroParams;
-  setHero: Dispatch<SetStateAction<HeroParams>>;
-  setRival: Dispatch<SetStateAction<HeroParams | undefined>>;
+  battleScores: BattleScores;
+  character?: Character;
+  rival?: Character;
+  setCharacter: Dispatch<SetStateAction<Character | undefined>>;
+  setRival: Dispatch<SetStateAction<Character | undefined>>;
   reset: () => void;
 };
-
-// const mockHero: HeroParams = {
-//   id: '1',
-//   name: 'SPIRITGREEN',
-//   image: '/spiritgreen.png',
-//   crystal: 6,
-//   power: 15,
-//   speed: 255,
-//   health: 30,
-//   energy: 3,
-//   created_at: '0',
-//   user_id: '0'
-// };
 
 const defaultValue: BattleContextType = {
   startBattle: () => Promise.resolve(),
   state: 'inactive',
   step: 0,
-  process: { hero: 0, rival: 0 },
+  battleScores: { character: 0, rival: 0 },
+
+  character: undefined,
+  setCharacter: () => {},
+
   rival: undefined,
-  hero: {} as HeroParams,
-  setHero: () => {},
   setRival: () => {},
+
   reset: () => {},
 };
 
@@ -58,36 +42,52 @@ const STEP_DELAY = 1400;
 
 export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, setState] = useState<BattleState>(defaultValue.state);
-  const [hero, setHero] = useState<HeroParams>(defaultValue.hero);
-  const [rival, setRival] = useState<HeroParams | undefined>(defaultValue.rival);
+  const [character, setCharacter] = useState<Character | undefined>(defaultValue.character);
+  const [rival, setRival] = useState<Character | undefined>(defaultValue.rival);
   const [step, setStep] = useState<number>(defaultValue.step);
-  const [process, setProcess] = useState(defaultValue.process);
+  const [battleScores, setBattleScores] = useState(defaultValue.battleScores);
+  const [battle, setBattle]  = useState<Battle | undefined>(undefined)
+
+  useUserCharacters({
+    onSuccess: (data) => {
+      if (data && Array.isArray(data)) {
+        setCharacter(data?.[0])
+      }
+    }
+  })
+
   const reset = () => {
     setState(defaultValue.state);
-    // setHero(defaultValue.hero);
     setRival(defaultValue.rival);
     setStep(defaultValue.step);
-    setProcess(defaultValue.process);
+    setBattleScores(defaultValue.battleScores);
   };
-  const getRival = async () => {
-    const response = await fetch('/api/getRival');
+
+  const getRival = async (characterId: string) => {
+    const response = await fetch('/api/getRival?' + new URLSearchParams({ characterId }));
     return response.json();
   };
+
   const startBattle = async () => {
-    setHero((prevState) => ({ ...prevState, energy: prevState.energy - 1 }));
+    if (!character) return;
+
+    setCharacter((prevState) => (prevState ? { ...prevState, energy: prevState.energy - 1 } : undefined));
 
     reset();
 
-    const battleProcess: BattleProcess = {
-      hero: 0,
-      rival: 0,
-    };
-
     setState('searching');
 
-    const rival = await getRival();
+    const rival = await getRival(character.id);
+
+    console.log(rival)
+
+    if (!rival) return;
 
     setRival(rival);
+
+    const battle = new Battle(character, rival);
+
+    setBattle(battle);
 
     setState('active');
 
@@ -97,48 +97,46 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     await delay(STEP_DELAY);
 
-    battleProcess.hero = hero.health >= rival.health ? battleProcess.hero + 25 : battleProcess.hero;
-    battleProcess.rival = hero.health >= rival.health ? battleProcess.rival : battleProcess.rival + 25;
-    setProcess(battleProcess);
+    battle.matchSpec('health');
+    setBattleScores(battle.getState());
 
     setStep(2);
 
     await delay(STEP_DELAY);
 
-    battleProcess.hero = hero.speed >= rival.speed ? battleProcess.hero + 25 : battleProcess.hero;
-    battleProcess.rival = hero.speed >= rival.speed ? battleProcess.rival : battleProcess.rival + 25;
-    setProcess(battleProcess);
+    battle.matchSpec('speed');
+    setBattleScores(battle.getState());
 
     setStep(3);
 
     await delay(STEP_DELAY);
 
-    battleProcess.hero = hero.power >= rival.power ? battleProcess.hero + 25 : battleProcess.hero;
-    battleProcess.rival = hero.power >= rival.power ? battleProcess.rival : battleProcess.rival + 25;
-    setProcess(battleProcess);
+    battle.matchSpec('power');
+    setBattleScores(battle.getState());
 
     setStep(4);
 
     await delay(STEP_DELAY);
 
-    battleProcess.hero = hero.crystal >= rival.crystal ? battleProcess.hero + 25 : battleProcess.hero;
-    battleProcess.rival = hero.crystal >= rival.crystal ? battleProcess.rival : battleProcess.rival + 25;
-    setProcess(battleProcess);
+    battle.matchSpec('crystals');
+    setBattleScores(battle.getState());
 
     setStep(5);
 
     await delay(STEP_DELAY);
 
-    setState(battleProcess.hero >= battleProcess.rival ? 'win' : 'loose');
+    const result = battle.getResult();
+
+    setState(result.win ? 'win' : 'loose');
   };
 
   const value = {
     state,
     step,
-    process,
+    battleScores,
     startBattle,
-    hero,
-    setHero,
+    character,
+    setCharacter,
     rival,
     setRival,
     reset,

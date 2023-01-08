@@ -12,10 +12,21 @@ export default async function getUserCharacters(req: NextApiRequest, res: NextAp
     data: { user },
   } = await supabaseServerClient.auth.getUser()
 
-  const { data, error, status } = await supabaseServerClient
-    .from('characters')
+  const userCrystalsRequest = supabaseServerClient
+    .from('crystals')
     .select('*')
-    .eq('user_id', user?.id);
+    .eq('user_id', user?.id)
+    .limit(1)
+    .maybeSingle()
 
-  res.status(status).json(data ?? error);
+  const userCharactersRequest = supabaseServerClient
+    .from('characters')
+    .select('id, name, power, speed, health, energy, image')
+    .eq('user_id', user?.id)
+
+  const [userCrystals, userCharacters] = await Promise.all([userCrystalsRequest, userCharactersRequest])
+
+  const result = userCharacters?.data?.map((character) => ({ ...character, crystals: userCrystals?.data?.value ?? 0 }));
+
+  res.status(userCharacters.status).json(result ?? userCharacters.error);
 }

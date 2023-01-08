@@ -193,7 +193,10 @@ export interface Database {
       }
     }
     Functions: {
-      [_ in never]: never
+      reduce_character_energy: {
+        Args: { character_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

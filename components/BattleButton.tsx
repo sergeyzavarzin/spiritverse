@@ -7,7 +7,7 @@ import { useBattle } from './BattleContext';
 type Props = HTMLAttributes<HTMLButtonElement> & {};
 
 export const BattleButton: FC<Props> = () => {
-  const { startBattle, state, process, hero } = useBattle();
+  const { startBattle, state, battleScores, character } = useBattle();
 
   return (
     <button
@@ -17,10 +17,10 @@ export const BattleButton: FC<Props> = () => {
         state !== 'active' && 'justify-center'
       )}
       onClick={startBattle}
-      disabled={hero?.energy <= 0}
+      disabled={Number(character?.energy) <= 0}
     >
       {(state === 'inactive' || state === 'win' || state === 'loose') && (
-        <span>{hero?.energy > 0 ? 'начать сражение' : 'недостаточно энергии'}</span>
+        <span>{Number(character?.energy) > 0 ? 'начать сражение' : 'недостаточно энергии'}</span>
       )}
       {state === 'searching' && 'идет поиск соперника'}
       {state === 'active' && (
@@ -28,11 +28,11 @@ export const BattleButton: FC<Props> = () => {
           <span>победа</span>
           <div
             className={cn('absolute right-[50%] h-10 rounded-l-3xl bg-accent')}
-            style={{ width: `${process.hero / 2}%` }}
+            style={{ width: `${battleScores.character / 2}%` }}
           />
           <div
             className={cn('absolute left-[50%] h-10 rounded-r-3xl bg-accent')}
-            style={{ width: `${process.rival / 2}%` }}
+            style={{ width: `${battleScores.rival / 2}%` }}
           />
           <span>поражение</span>
         </div>

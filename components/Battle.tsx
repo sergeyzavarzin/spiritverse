@@ -24,7 +24,7 @@ export const Battle: FC = () => {
           </div>
         </div>
       ) : (
-        <Hero />
+        <Hero isRival />
       )}
     </>
   );
