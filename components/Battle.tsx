@@ -15,7 +15,7 @@ export const Battle: FC = () => {
             <div className="text-center text-2xl">
               Выбирай задания <br /> и зарабатывай кристаллы
             </div>
-            <div className="text-md text-center text-[#919EAB]">
+            <div className="text-md text-center text-gray">
               Трать кристаллы на прокачку своего <br /> персонажа выполняя задания в любой игре
             </div>
             <button className="rounded-2xl border border-[1px] border-solid border-border px-12 py-4">

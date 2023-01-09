@@ -106,6 +106,7 @@ export interface Database {
           id: string
           starts_at: string | null
           ends_at: string | null
+          description: string | null
         }
         Insert: {
           created_at?: string | null
@@ -119,6 +120,7 @@ export interface Database {
           id?: string
           starts_at?: string | null
           ends_at?: string | null
+          description?: string | null
         }
         Update: {
           created_at?: string | null
@@ -132,6 +134,7 @@ export interface Database {
           id?: string
           starts_at?: string | null
           ends_at?: string | null
+          description?: string | null
         }
       }
       tokens: {
@@ -152,6 +155,32 @@ export interface Database {
           user_id?: string | null
           value?: number | null
           id?: string
+        }
+      }
+      users_tasks: {
+        Row: {
+          id: string
+          created_at: string | null
+          user_id: string
+          task_id: string
+          value: number
+          done: boolean
+        }
+        Insert: {
+          id?: string
+          created_at?: string | null
+          user_id: string
+          task_id: string
+          value?: number
+          done?: boolean
+        }
+        Update: {
+          id?: string
+          created_at?: string | null
+          user_id?: string
+          task_id?: string
+          value?: number
+          done?: boolean
         }
       }
     }

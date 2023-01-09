@@ -79,8 +79,6 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const rival = await getRival(character.id);
 
-    console.log(rival)
-
     if (!rival) return;
 
     setRival(rival);
