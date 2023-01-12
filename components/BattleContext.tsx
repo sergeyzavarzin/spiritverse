@@ -4,6 +4,8 @@ import { createContext, Dispatch, FC, PropsWithChildren, SetStateAction, useCont
 import { Character } from '../types/battle';
 import { useUserCharacters } from '../hooks/useUserCharacters';
 import { Battle, BattleScores } from '../utils/battle';
+import { useCrystalBalance } from '../hooks/useCrystalBalance';
+import { useTokenBalance } from '../hooks/useTokenBalance';
 
 export type BattleState = 'inactive' | 'searching' | 'active' | 'win' | 'loose';
 
@@ -17,6 +19,7 @@ type BattleContextType = {
   setCharacter: Dispatch<SetStateAction<Character | undefined>>;
   setRival: Dispatch<SetStateAction<Character | undefined>>;
   reset: () => void;
+  battle?: Battle;
 };
 
 const defaultValue: BattleContextType = {
@@ -32,6 +35,8 @@ const defaultValue: BattleContextType = {
   setRival: () => {},
 
   reset: () => {},
+
+  battle: undefined,
 };
 
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
@@ -46,21 +51,25 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [rival, setRival] = useState<Character | undefined>(defaultValue.rival);
   const [step, setStep] = useState<number>(defaultValue.step);
   const [battleScores, setBattleScores] = useState(defaultValue.battleScores);
-  const [battle, setBattle]  = useState<Battle | undefined>(undefined)
+  const [_, setBattle] = useState<Battle | undefined>(defaultValue.battle);
 
   useUserCharacters({
     onSuccess: (data) => {
       if (data && Array.isArray(data)) {
-        setCharacter(data?.[0])
+        setCharacter(data?.[0]);
       }
-    }
-  })
+    },
+  });
+
+  const { refetch: refetchCrystalBalance } = useCrystalBalance();
+  const { refetch: refetchTokenBalance } = useTokenBalance();
 
   const reset = () => {
     setState(defaultValue.state);
     setRival(defaultValue.rival);
     setStep(defaultValue.step);
     setBattleScores(defaultValue.battleScores);
+    setBattle(undefined);
   };
 
   const getRival = async (characterId: string) => {
@@ -126,6 +135,8 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
     const result = battle.getResult();
 
     setState(result.win ? 'win' : 'loose');
+
+    await Promise.all([refetchCrystalBalance(), refetchTokenBalance()]);
   };
 
   const value = {

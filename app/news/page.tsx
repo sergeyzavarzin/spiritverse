@@ -1,5 +1,5 @@
-import { MockNews } from './MockNews';
+import { News } from './News';
 
-export default function News() {
-  return <MockNews />;
+export default function NewsPage() {
+  return <News />;
 }

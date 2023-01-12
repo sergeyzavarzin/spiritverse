@@ -1,5 +1,5 @@
-import { MockMarketplace } from './MockMarketplace';
+import { Marketplace } from './Marketplace';
 
-export default function Marketplace() {
-  return <MockMarketplace />;
+export default function MarketplacePage() {
+  return <Marketplace />;
 }

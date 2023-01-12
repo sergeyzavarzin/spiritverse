@@ -1,5 +1,8 @@
 'use client';
+
 import { FC } from 'react';
+import Link from 'next/link';
+
 import { Hero } from './Hero';
 import { BattleMeter } from './BattleMeter';
 import { useBattle } from './BattleContext';
@@ -18,9 +21,9 @@ export const Battle: FC = () => {
             <div className="text-md text-center text-gray">
               Трать кристаллы на прокачку своего <br /> персонажа выполняя задания в любой игре
             </div>
-            <button className="rounded-2xl border border-[1px] border-solid border-border px-12 py-4">
+            <Link href="/tasks" className="rounded-2xl border border-[1px] border-solid border-border px-12 py-4">
               Выбрать задания
-            </button>
+            </Link>
           </div>
         </div>
       ) : (

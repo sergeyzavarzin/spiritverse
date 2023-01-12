@@ -12,175 +12,175 @@ export interface Database {
       characters: {
         Row: {
           created_at: string | null
-          user_id: string | null
+          energy: number
+          health: number
+          id: string
+          image: string | null
           name: string | null
           power: number
           speed: number
-          health: number
-          energy: number
-          image: string | null
-          id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string | null
-          user_id?: string | null
+          energy?: number
+          health?: number
+          id?: string
+          image?: string | null
           name?: string | null
           power?: number
           speed?: number
-          health?: number
-          energy?: number
-          image?: string | null
-          id?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string | null
-          user_id?: string | null
+          energy?: number
+          health?: number
+          id?: string
+          image?: string | null
           name?: string | null
           power?: number
           speed?: number
-          health?: number
-          energy?: number
-          image?: string | null
-          id?: string
+          user_id?: string | null
         }
       }
       crystals: {
         Row: {
-          user_id: string | null
           created_at: string | null
-          value: number | null
           id: string
+          user_id: string | null
+          value: number | null
         }
         Insert: {
-          user_id?: string | null
           created_at?: string | null
-          value?: number | null
           id?: string
+          user_id?: string | null
+          value?: number | null
         }
         Update: {
-          user_id?: string | null
           created_at?: string | null
-          value?: number | null
           id?: string
+          user_id?: string | null
+          value?: number | null
         }
       }
       notifications: {
         Row: {
           created_at: string | null
-          user_id: string | null
-          title: string | null
           description: string | null
-          type: string | null
-          meta: Json | null
           id: string
+          meta: Json | null
+          title: string | null
+          type: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string | null
-          user_id?: string | null
-          title?: string | null
           description?: string | null
-          type?: string | null
-          meta?: Json | null
           id?: string
+          meta?: Json | null
+          title?: string | null
+          type?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string | null
-          user_id?: string | null
-          title?: string | null
           description?: string | null
-          type?: string | null
-          meta?: Json | null
           id?: string
+          meta?: Json | null
+          title?: string | null
+          type?: string | null
+          user_id?: string | null
         }
       }
       tasks: {
         Row: {
-          created_at: string | null
           active: boolean | null
-          title: string | null
-          reward: number | null
-          goal: number | null
-          target: string | null
           category: string | null
-          link: string | null
-          id: string
-          starts_at: string | null
-          ends_at: string | null
+          created_at: string | null
           description: string | null
+          ends_at: string | null
+          goal: number | null
+          id: string
+          link: string | null
+          reward: number | null
+          starts_at: string | null
+          target: string | null
+          title: string | null
         }
         Insert: {
-          created_at?: string | null
           active?: boolean | null
-          title?: string | null
-          reward?: number | null
-          goal?: number | null
-          target?: string | null
           category?: string | null
-          link?: string | null
-          id?: string
-          starts_at?: string | null
-          ends_at?: string | null
+          created_at?: string | null
           description?: string | null
+          ends_at?: string | null
+          goal?: number | null
+          id?: string
+          link?: string | null
+          reward?: number | null
+          starts_at?: string | null
+          target?: string | null
+          title?: string | null
         }
         Update: {
-          created_at?: string | null
           active?: boolean | null
-          title?: string | null
-          reward?: number | null
-          goal?: number | null
-          target?: string | null
           category?: string | null
-          link?: string | null
-          id?: string
-          starts_at?: string | null
-          ends_at?: string | null
+          created_at?: string | null
           description?: string | null
+          ends_at?: string | null
+          goal?: number | null
+          id?: string
+          link?: string | null
+          reward?: number | null
+          starts_at?: string | null
+          target?: string | null
+          title?: string | null
         }
       }
       tokens: {
         Row: {
           created_at: string | null
+          id: string
           user_id: string | null
           value: number | null
-          id: string
         }
         Insert: {
           created_at?: string | null
+          id?: string
           user_id?: string | null
           value?: number | null
-          id?: string
         }
         Update: {
           created_at?: string | null
+          id?: string
           user_id?: string | null
           value?: number | null
-          id?: string
         }
       }
       users_tasks: {
         Row: {
-          id: string
           created_at: string | null
-          user_id: string
-          task_id: string
-          value: number
           done: boolean
+          id: string
+          task_id: string
+          user_id: string
+          value: number
         }
         Insert: {
-          id?: string
           created_at?: string | null
-          user_id: string
-          task_id: string
-          value?: number
           done?: boolean
+          id?: string
+          task_id: string
+          user_id: string
+          value?: number
         }
         Update: {
-          id?: string
           created_at?: string | null
-          user_id?: string
-          task_id?: string
-          value?: number
           done?: boolean
+          id?: string
+          task_id?: string
+          user_id?: string
+          value?: number
         }
       }
     }
@@ -188,40 +188,48 @@ export interface Database {
       random_characters: {
         Row: {
           created_at: string | null
-          user_id: string | null
+          energy: number | null
+          health: number | null
+          id: string | null
+          image: string | null
           name: string | null
           power: number | null
           speed: number | null
-          health: number | null
-          energy: number | null
-          image: string | null
-          id: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string | null
-          user_id?: string | null
+          energy?: number | null
+          health?: number | null
+          id?: string | null
+          image?: string | null
           name?: string | null
           power?: number | null
           speed?: number | null
-          health?: number | null
-          energy?: number | null
-          image?: string | null
-          id?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string | null
-          user_id?: string | null
+          energy?: number | null
+          health?: number | null
+          id?: string | null
+          image?: string | null
           name?: string | null
           power?: number | null
           speed?: number | null
-          health?: number | null
-          energy?: number | null
-          image?: string | null
-          id?: string | null
+          user_id?: string | null
         }
       }
     }
     Functions: {
+      add_crystals: {
+        Args: { uid: string; amount: number }
+        Returns: undefined
+      }
+      fight_battle: {
+        Args: { uid: string; character_id: string; win: number }
+        Returns: undefined
+      }
       reduce_character_energy: {
         Args: { character_id: string }
         Returns: undefined

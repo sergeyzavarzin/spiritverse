@@ -1,5 +1,5 @@
-import { MockTasks } from './MockTasks';
+import { TasksList } from './TasksList';
 
-export default function Tasks() {
-  return <MockTasks />;
+export default function TasksPage() {
+  return <TasksList />;
 }
