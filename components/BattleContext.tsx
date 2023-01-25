@@ -6,6 +6,7 @@ import { useUserCharacters } from '../hooks/useUserCharacters';
 import { Battle, BattleScores } from '../utils/battle';
 import { useCrystalBalance } from '../hooks/useCrystalBalance';
 import { useTokenBalance } from '../hooks/useTokenBalance';
+import { useRouter } from 'next/navigation';
 
 export type BattleState = 'inactive' | 'searching' | 'active' | 'win' | 'loose';
 
@@ -77,10 +78,12 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
     return response.json();
   };
 
-  const startBattle = async () => {
-    if (!character) return;
+  const { push } = useRouter();
 
-    setCharacter((prevState) => (prevState ? { ...prevState, energy: prevState.energy - 1 } : undefined));
+  const startBattle = async () => {
+    if (!character || !character.energy) return;
+
+    await push('/');
 
     reset();
 
@@ -88,7 +91,10 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const rival = await getRival(character.id);
 
-    if (!rival) return;
+    if (!rival) {
+      reset();
+      return;
+    }
 
     setRival(rival);
 
@@ -135,6 +141,8 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
     const result = battle.getResult();
 
     setState(result.win ? 'win' : 'loose');
+
+    setCharacter((prevState) => (prevState ? { ...prevState, energy: prevState.energy - 1 } : undefined));
 
     await Promise.all([refetchCrystalBalance(), refetchTokenBalance()]);
   };

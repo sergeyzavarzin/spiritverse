@@ -1,7 +1,6 @@
 'use client';
 
 import { FC } from 'react';
-import { useQuery } from '@tanstack/react-query';
 
 import { CrystalPoints } from './icons/CrystalPoints';
 import { SPRT } from './icons/SPRT';
@@ -10,7 +9,6 @@ import { useCrystalBalance } from '../hooks/useCrystalBalance';
 import { useTokenBalance } from '../hooks/useTokenBalance';
 
 export const AccountStats: FC = () => {
-
   const { data: crystals } = useCrystalBalance();
 
   const { data: tokens } = useTokenBalance();
