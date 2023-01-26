@@ -1,10 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { useTasks } from '../../hooks/useTasks';
 import { CrystalPoints } from '../../components/icons/CrystalPoints';
 import { Task } from '../../types/tasks';
 import { AirtableFormModal } from '../../components/AirtableFormModal';
-import { useState } from 'react';
 
 export const TasksList = () => {
   const { data, isFetching } = useTasks();
@@ -40,7 +40,7 @@ export const TasksList = () => {
           data?.length &&
           data.map((task) => (
             <div
-              key={task.id}
+              key={task?.id}
               className="flex h-28 w-full flex-wrap overflow-hidden rounded-2xl border-[1px] border-solid border-border hover:cursor-pointer"
               onClick={() => handleTaskClick(task)}
             >
@@ -49,16 +49,16 @@ export const TasksList = () => {
               </div>
               <div className="flex w-5/6 flex-col justify-between p-5">
                 <div className="flex justify-between">
-                  <div className="text-gray">{task.info.title}</div>
+                  <div className="text-gray">{task?.info?.title}</div>
                   <div className="text-gray">
-                    {task.value}/{task.info.goal}
+                    {task?.value}/{task?.info?.goal}
                   </div>
                 </div>
                 <div className="flex justify-between">
-                  <div className="text-gray">{task.info.description}</div>
+                  <div className="text-gray">{task?.info?.description}</div>
                   <div className="flex items-center gap-2 text-xl">
                     <CrystalPoints />
-                    <span>{task.info.reward}</span>
+                    <span>{task?.info?.reward}</span>
                   </div>
                 </div>
               </div>
