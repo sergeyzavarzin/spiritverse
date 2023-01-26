@@ -6,18 +6,20 @@ export default async function getTasks(req: NextApiRequest, res: NextApiResponse
   const supabaseServerClient = createServerSupabaseClient<Database>({
     req,
     res,
-  })
+  });
 
   const {
     data: { user },
-  } = await supabaseServerClient.auth.getUser()
+  } = await supabaseServerClient.auth.getUser();
 
   const { data, error, status } = await supabaseServerClient
     .from('users_tasks')
-    .select('id, value, done, info:tasks(id, title, description, reward, goal, target, category, link, starts_at, ends_at)')
-    .filter('info.active', 'is', true)
+    .select(
+      'id, value, done, info:tasks!inner(id, title, description, reward, goal, target, category, link, starts_at, ends_at)'
+    )
+    .is('info.active', true)
     .eq('user_id', user?.id);
-
+  
   if (error) {
     console.error(error);
     res.status(status).json(error);
