@@ -20,7 +20,7 @@ export const TasksList = () => {
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-3xl border-[1px] border-solid border-border">
+    <div className="flex flex-col overflow-hidden rounded-3xl border border-solid border-border">
       <div className="flex w-full items-center justify-between bg-[#3C444D] py-5 px-10">
         <div className="text-3xl">Мои задания</div>
         <div className="flex gap-5">
@@ -41,7 +41,7 @@ export const TasksList = () => {
           data.map((task) => (
             <div
               key={task?.id}
-              className="flex h-28 w-full flex-wrap overflow-hidden rounded-2xl border-[1px] border-solid border-border hover:cursor-pointer"
+              className="flex h-28 w-full flex-wrap overflow-hidden rounded-2xl border border-solid border-border hover:cursor-pointer"
               onClick={() => handleTaskClick(task)}
             >
               <div className="flex basis-1/6 items-center justify-center bg-gradient-to-b from-backgroundHeroStart to-backgroundHeroStop">

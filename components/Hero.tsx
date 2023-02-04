@@ -42,7 +42,9 @@ export const Hero: FC<Props> = ({ isRival }) => {
     >
       {state === 'inactive' && !isRival && (
         <div className="absolute top-6 left-6">
-          <div className="mb-2.5 rounded-md bg-[#919eab80] py-1 text-center text-sm">{!isFetching && `1/${characters?.length}`}</div>
+          <div className="mb-2.5 rounded-md bg-[#919eab80] py-1 text-center text-sm">
+            {!isFetching && `1/${characters?.length}`}
+          </div>
           <div className="flex items-center gap-2.5">
             <div className="h-8 w-8 rounded-2xl bg-paramYellow"></div>
             <div className="text-4xl font-bold text-paramYellow">{character?.energy ?? ''}</div>
@@ -63,19 +65,19 @@ export const Hero: FC<Props> = ({ isRival }) => {
         <div
           className={cn(
             'px-6',
-            isRival ? 'order-4 border-l-[1px] border-solid border-gray' : 'order-1',
+            isRival ? 'order-4 border-l border-solid border-gray' : 'order-1',
             step >= 5 && 'hidden'
           )}
         >
           <div className="font-thin">Кристалы</div>
           <div className="flex items-center gap-1.5">
             <Crystal className="h-6 w-6 rounded-2xl bg-paramGreen" />
-            <div className="text-2xl font-bold">{!isRival ? crystals : rival?.crystals  ?? '0'}</div>
+            <div className="text-2xl font-bold">{!isRival ? crystals : rival?.crystals ?? '0'}</div>
           </div>
         </div>
         <div
           className={cn(
-            'border-l-[1px] border-solid border-gray px-6',
+            'border-l border-solid border-gray px-6',
             isRival ? 'order-3' : 'order-2',
             step >= 4 && 'hidden'
           )}
@@ -88,7 +90,7 @@ export const Hero: FC<Props> = ({ isRival }) => {
         </div>
         <div
           className={cn(
-            'border-l-[1px] border-solid border-gray px-6',
+            'border-l border-solid border-gray px-6',
             isRival ? 'order-2' : 'order-3',
             step >= 3 && 'hidden'
           )}
@@ -102,7 +104,7 @@ export const Hero: FC<Props> = ({ isRival }) => {
         <div
           className={cn(
             'px-6',
-            isRival ? 'order-1' : 'order-4 border-l-[1px] border-solid border-gray',
+            isRival ? 'order-1' : 'order-4 border-l border-solid border-gray',
             step >= 2 && 'hidden'
           )}
         >

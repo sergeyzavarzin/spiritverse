@@ -27,11 +27,11 @@ export const BattleButton: FC<Props> = () => {
         <div className="flex w-full justify-between ">
           <span>победа</span>
           <div
-            className={cn('absolute right-[50%] h-10 rounded-l-3xl bg-accent')}
+            className={cn('absolute right-1/2 h-10 rounded-l-3xl bg-accent')}
             style={{ width: `${battleScores.character / 2}%` }}
           />
           <div
-            className={cn('absolute left-[50%] h-10 rounded-r-3xl bg-accent')}
+            className={cn('absolute left-1/2 h-10 rounded-r-3xl bg-accent')}
             style={{ width: `${battleScores.rival / 2}%` }}
           />
           <span>поражение</span>

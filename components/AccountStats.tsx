@@ -7,6 +7,7 @@ import { SPRT } from './icons/SPRT';
 import { Account } from './Account';
 import { useCrystalBalance } from '../hooks/useCrystalBalance';
 import { useTokenBalance } from '../hooks/useTokenBalance';
+import { NotificationsCenter } from './NotificationsCenter';
 
 export const AccountStats: FC = () => {
   const { data: crystals } = useCrystalBalance();
@@ -24,6 +25,9 @@ export const AccountStats: FC = () => {
         <SPRT />
         <span>SPRT:</span>
         <span className="font-bold text-counterBlue">{tokens}</span>
+      </div>
+      <div>
+        <NotificationsCenter />
       </div>
       <div>
         <Account />
