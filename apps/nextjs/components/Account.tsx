@@ -36,7 +36,7 @@ export const Account = () => {
               <Menu.Item>
                 <Link
                   className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                  href="/apps/nextjs/components/Account"
+                  href="/account"
                 >
                   Аккаунт {session?.user?.email && `(${session?.user?.email})`}
                 </Link>
