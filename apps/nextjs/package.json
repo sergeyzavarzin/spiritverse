@@ -1,5 +1,5 @@
 {
-  "name": "spiritverse",
+  "name": "@spirit/nextjs",
   "version": "0.0.1",
   "private": true,
   "scripts": {

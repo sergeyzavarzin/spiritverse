@@ -1,4 +1,4 @@
-/** @type {import("prettier").Config} */
+/** @type {import('prettier').Config} */
 module.exports = {
   arrowParens: "always",
   printWidth: 80,
@@ -17,7 +17,7 @@ module.exports = {
     "^(next/(.*)$)|^(next$)",
     "^(expo(.*)$)|^(expo$)",
     "<THIRD_PARTY_MODULES>",
-    "^@acme/(.*)$",
+    "^@spirit/(.*)$",
     "",
     "^~/utils/(.*)$",
     "^~/components/(.*)$",
