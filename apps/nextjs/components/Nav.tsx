@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { FC } from 'react';
-import Link from 'next/link';
-import cn from 'classnames';
-import { usePathname } from 'next/navigation';
+import cn from "classnames";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FC } from "react";
 
 const nav = [
   {
-    pathname: '/',
-    label: 'Сражения',
+    pathname: "/",
+    label: "Сражения",
   },
   {
-    pathname: '/tasks',
-    label: 'Задания',
+    pathname: "/tasks",
+    label: "Задания",
   },
   {
-    pathname: '/marketplace',
-    label: 'Магазин',
+    pathname: "/marketplace",
+    label: "Магазин",
   },
   {
-    pathname: '/news',
-    label: 'Новости',
+    pathname: "/news",
+    label: "Новости",
   },
 ];
 
@@ -32,8 +32,11 @@ export const Nav: FC = () => {
       {nav.map((link) => (
         <Link
           key={link.pathname}
-          href={link.pathname}
-          className={cn('px-7 py-5', pathname === link.pathname && 'rounded-2xl bg-gray')}
+          href={{ pathname: link.pathname }}
+          className={cn(
+            "px-7 py-5",
+            pathname === link.pathname && "bg-gray rounded-2xl",
+          )}
         >
           {link.label}
         </Link>

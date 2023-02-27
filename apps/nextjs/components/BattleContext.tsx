@@ -1,5 +1,6 @@
 "use client";
 
+import { Character } from "@spirit/types";
 import { useRouter } from "next/navigation";
 import {
   createContext,
@@ -10,10 +11,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { useCrystalBalance } from "../hooks/useCrystalBalance";
-import { useTokenBalance } from "../hooks/useTokenBalance";
-import { useUserCharacters } from "../hooks/useUserCharacters";
-import { Character } from "../types/battle";
+import { trpc } from "../contexts/TRPCProvider";
 import { Battle, BattleScores } from "../utils/battle";
 
 export type BattleState = "inactive" | "searching" | "active" | "win" | "loose";
@@ -64,7 +62,7 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [battleScores, setBattleScores] = useState(defaultValue.battleScores);
   const [_, setBattle] = useState<Battle | undefined>(defaultValue.battle);
 
-  useUserCharacters({
+  trpc.character.get.useQuery(undefined, {
     onSuccess: (data: Character[] | undefined) => {
       if (data && Array.isArray(data)) {
         setCharacter(data?.[0]);
@@ -72,8 +70,8 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
     },
   });
 
-  const { refetch: refetchCrystalBalance } = useCrystalBalance();
-  const { refetch: refetchTokenBalance } = useTokenBalance();
+  const { refetch: refetchCrystalBalance } = trpc.balance.crystals.useQuery();
+  const { refetch: refetchTokenBalance } = trpc.balance.tokens.useQuery();
 
   const reset = () => {
     setState(defaultValue.state);
@@ -83,10 +81,14 @@ export const BattleContextProvider: FC<PropsWithChildren> = ({ children }) => {
     setBattle(undefined);
   };
 
+  // TODO: delete all this shit
   const getRival = async (characterId: string): Promise<Character> => {
-    const params = new URLSearchParams({ characterId });
-    const response = await fetch(`/api/getRival?${String(params)}`);
-    return response.json() as unknown as Character;
+    // const params = new URLSearchParams({ characterId });
+    // const response = await fetch(`/api/getRival?${String(params)}`);
+    const result = (await Promise.resolve({
+      id: characterId,
+    })) as unknown as Character;
+    return result;
   };
 
   const router = useRouter();

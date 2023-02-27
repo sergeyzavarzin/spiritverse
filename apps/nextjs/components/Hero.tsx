@@ -3,9 +3,8 @@
 import cn from "classnames";
 import Image from "next/image";
 import { FC } from "react";
+import { trpc } from "../contexts/TRPCProvider";
 import { fontTSpirit2Beta } from "../fonts";
-import { useCrystalBalance } from "../hooks/useCrystalBalance";
-import { useUserCharacters } from "../hooks/useUserCharacters";
 import { Badge } from "./Badge";
 import { useBattle } from "./BattleContext";
 import { CrossCircle } from "./icons/CrossCircle";
@@ -22,9 +21,9 @@ type Props = {
 export const Hero: FC<Props> = ({ isRival }) => {
   const { character, rival, step, state, reset } = useBattle();
 
-  const { data: crystals } = useCrystalBalance();
+  const { data: crystals } = trpc.balance.crystals.useQuery();
 
-  const { data: characters, isFetching } = useUserCharacters();
+  const { data: characters, isFetching } = trpc.character.get.useQuery();
 
   const currentHero = isRival ? rival : character;
 

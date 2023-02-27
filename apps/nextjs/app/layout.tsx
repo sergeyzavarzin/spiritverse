@@ -1,5 +1,7 @@
+import type { Database } from "@spirit/types";
 import type { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import cn from "classnames";
+// import type { Metadata } from "next";
 import { PropsWithChildren } from "react";
 import { BattleButton } from "../components/BattleButton";
 import { BattleContextProvider } from "../components/BattleContext";
@@ -11,11 +13,11 @@ import SupabaseProvider from "../contexts/SupabaseProvider";
 import { TRPCProvider } from "../contexts/TRPCProvider";
 import { fontTTInterphases } from "../fonts";
 import "../styles/globals.css";
-import type { Database } from "../types/supabase";
 import { createServerClient } from "../utils/supabase-server";
 
 // Next.js 13.2 new metadata definition standard (https://beta.nextjs.org/docs/api-reference/metadata)
 export const metadata = {
+  // add Metadata type
   title: {
     default: "Spiritverse",
     template: "%s | Spiritverse",

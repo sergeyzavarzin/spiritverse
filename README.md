@@ -232,3 +232,9 @@ the Expo docs.
 The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
+
+## Generate types for supabase
+
+```
+npx supabase gen types typescript --project-id $PROJECT_ID --schema public > types/supabase.ts
+```

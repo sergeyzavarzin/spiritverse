@@ -1,12 +1,12 @@
 "use client";
 
 import type { AppRouter } from "@spirit/api";
+import { transformer } from "@spirit/api/transformer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 import { PropsWithChildren } from "react";
-import superjson from "superjson";
 import { getBaseUrl } from "../utils/getBaseUrl";
 
 export const trpc = createTRPCReact<AppRouter>({
@@ -40,7 +40,7 @@ const trpcClient = trpc.createClient({
       url: `${getBaseUrl()}/api/trpc`,
     }),
   ],
-  transformer: superjson,
+  transformer,
 });
 
 export function TRPCProvider(props: PropsWithChildren) {

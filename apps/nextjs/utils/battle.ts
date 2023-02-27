@@ -1,6 +1,9 @@
-import { Character } from '../types/battle';
+import { Character } from "@spirit/types";
 
-type CharacterBattleSpecs = Pick<Character, 'power' | 'speed' | 'health' | 'crystals'>;
+type CharacterBattleSpecs = Pick<
+  Character,
+  "power" | "speed" | "health" | "crystals"
+>;
 
 type BattleResult = {
   isFinished: boolean;
@@ -13,7 +16,10 @@ export type BattleScores = {
 };
 
 export class Battle {
-  constructor(private readonly character: Character, private readonly rival: Character) {
+  constructor(
+    private readonly character: Character,
+    private readonly rival: Character,
+  ) {
     this.result = {
       isFinished: false,
       win: false,
@@ -37,7 +43,12 @@ export class Battle {
   }
 
   getImmediateBattleResult() {
-    const specKeys: Array<keyof CharacterBattleSpecs> = ['power', 'speed', 'health', 'crystals'];
+    const specKeys: Array<keyof CharacterBattleSpecs> = [
+      "power",
+      "speed",
+      "health",
+      "crystals",
+    ];
     specKeys.forEach((specKey) => {
       this.matchSpec(specKey);
     });

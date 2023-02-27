@@ -15,7 +15,8 @@
     "dev:web": "pnpm --filter nextjs dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint && manypkg check",
-    "type-check": "turbo type-check"
+    "type-check": "turbo type-check",
+    "gen-supabase-types": "pnpm --filter types gen-supabase-types"
   },
   "dependencies": {
     "@manypkg/cli": "^0.20.0",
@@ -28,7 +29,10 @@
     "prettier-plugin-tailwindcss": "^0.2.2",
     "prettier-plugin-organize-imports": "^3.2.2",
     "turbo": "^1.7.4",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "@supabase/auth-helpers-nextjs": "0.5.4",
+    "@supabase/auth-helpers-react": "0.3.1",
+    "@supabase/supabase-js": "2.8.0"
   },
   "pnpm": {
     "packageExtensions": {

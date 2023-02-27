@@ -1,6 +1,6 @@
-import { headers, cookies } from "next/headers";
+import type { Database } from "@spirit/types";
 import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "../types/supabase";
+import { cookies, headers } from "next/headers";
 
 export const createServerClient = () =>
   createServerComponentSupabaseClient<Database>({

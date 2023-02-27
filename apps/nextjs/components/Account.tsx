@@ -35,7 +35,7 @@ export const Account = () => {
             <div className="px-1 py-1">
               <Menu.Item>
                 <Link
-                  className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  className="group flex w-full items-center rounded-md px-2 py-2 text-sm"
                   href="/account"
                 >
                   Аккаунт {session?.user?.email && `(${session?.user?.email})`}

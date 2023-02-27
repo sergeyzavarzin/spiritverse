@@ -64,35 +64,6 @@ export interface Database {
           value?: number | null
         }
       }
-      notifications: {
-        Row: {
-          created_at: string | null
-          description: string | null
-          id: string
-          meta: Json | null
-          title: string | null
-          type: string | null
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          meta?: Json | null
-          title?: string | null
-          type?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          description?: string | null
-          id?: string
-          meta?: Json | null
-          title?: string | null
-          type?: string | null
-          user_id?: string | null
-        }
-      }
       tasks: {
         Row: {
           active: boolean | null
@@ -157,6 +128,38 @@ export interface Database {
           value?: number | null
         }
       }
+      user_actions: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          meta: Json | null
+          title: string | null
+          type: string | null
+          user_id: string | null
+          value: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          meta?: Json | null
+          title?: string | null
+          type?: string | null
+          user_id?: string | null
+          value?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          meta?: Json | null
+          title?: string | null
+          type?: string | null
+          user_id?: string | null
+          value?: number | null
+        }
+      }
       users_tasks: {
         Row: {
           created_at: string | null
@@ -181,6 +184,38 @@ export interface Database {
           task_id?: string
           user_id?: string
           value?: number
+        }
+      }
+      wallets: {
+        Row: {
+          address: string | null
+          created_at: string | null
+          id: string
+          meta: Json | null
+          mnemonic: string | null
+          pk: string | null
+          type: string | null
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string | null
+          id?: string
+          meta?: Json | null
+          mnemonic?: string | null
+          pk?: string | null
+          type?: string | null
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string | null
+          id?: string
+          meta?: Json | null
+          mnemonic?: string | null
+          pk?: string | null
+          type?: string | null
+          user_id?: string
         }
       }
     }
@@ -223,19 +258,31 @@ export interface Database {
     }
     Functions: {
       add_crystals: {
-        Args: { uid: string; amount: number }
+        Args: {
+          uid: string
+          amount: number
+        }
         Returns: undefined
       }
       fight_battle: {
-        Args: { uid: string; character_id: string; win: number }
+        Args: {
+          uid: string
+          character_id: string
+          win: number
+        }
         Returns: undefined
       }
       reduce_character_energy: {
-        Args: { character_id: string }
+        Args: {
+          character_id: string
+        }
         Returns: undefined
       }
     }
     Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
       [_ in never]: never
     }
   }

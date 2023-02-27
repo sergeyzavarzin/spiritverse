@@ -1,10 +1,12 @@
-import { authRouter } from "./router/auth";
-import { postRouter } from "./router/post";
+import { balanceRouter } from "./router/balance";
+import { characterRouter } from "./router/character";
+import { taskRouter } from "./router/task";
 import { createTRPCRouter } from "./trpc";
 
 export const appRouter = createTRPCRouter({
-  post: postRouter,
-  auth: authRouter,
+  balance: balanceRouter,
+  task: taskRouter,
+  character: characterRouter,
 });
 
 // export type definition of API

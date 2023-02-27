@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@spirit/api": "*",
+    "@spirit/types": "*",
     "@headlessui/react": "1.7.11",
-    "@next/font": "13.2.1",
     "@novu/node": "^0.12.0",
     "@novu/notification-center": "^0.12.0",
     "@supabase/auth-helpers-nextjs": "0.5.4",

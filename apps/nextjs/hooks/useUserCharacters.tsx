@@ -1,5 +1,5 @@
+import { Character } from "@spirit/types";
 import { useQuery } from "@tanstack/react-query";
-import { Character } from "../types/battle";
 
 export const useUserCharacters = (options: unknown = {}) => {
   return useQuery<Character[], Error>(

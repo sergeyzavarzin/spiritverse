@@ -7,6 +7,9 @@ importers:
   .:
     specifiers:
       '@manypkg/cli': ^0.20.0
+      '@supabase/auth-helpers-nextjs': 0.5.4
+      '@supabase/auth-helpers-react': 0.3.1
+      '@supabase/supabase-js': 2.8.0
       '@types/eslint': ^8.21.0
       '@typescript-eslint/eslint-plugin': ^5.49.0
       '@typescript-eslint/parser': ^5.49.0
@@ -19,6 +22,9 @@ importers:
       typescript: ^4.9.5
     dependencies:
       '@manypkg/cli': 0.20.0
+      '@supabase/auth-helpers-nextjs': 0.5.4_h4fmw4dd6b3xkulak4k3c7hqqu
+      '@supabase/auth-helpers-react': 0.3.1_h4fmw4dd6b3xkulak4k3c7hqqu
+      '@supabase/supabase-js': 2.8.0
       '@types/eslint': 8.21.1
       '@typescript-eslint/eslint-plugin': 5.53.0_ny4s7qc6yg74faf3d6xty2ofzy
       '@typescript-eslint/parser': 5.53.0_7kw3g6rralp5ps6mg3uyzz6azm
@@ -33,10 +39,10 @@ importers:
   apps/nextjs:
     specifiers:
       '@headlessui/react': 1.7.11
-      '@next/font': 13.2.1
       '@novu/node': ^0.12.0
       '@novu/notification-center': ^0.12.0
       '@spirit/api': '*'
+      '@spirit/types': '*'
       '@supabase/auth-helpers-nextjs': 0.5.4
       '@supabase/auth-helpers-react': 0.3.1
       '@supabase/auth-ui-react': 0.2.8
@@ -45,7 +51,7 @@ importers:
       '@tanstack/react-query-devtools': 4.24.10
       '@trpc/client': ^10.13.0
       '@trpc/next': ^10.13.0
-      '@trpc/react-query': ^10.13.0
+      '@trpc/react-query': 10.13.0
       '@trpc/server': ^10.13.0
       '@types/node': 18.14.1
       '@types/react': 18.0.28
@@ -68,10 +74,10 @@ importers:
       typescript: 4.9.5
     dependencies:
       '@headlessui/react': 1.7.11_biqbaboplfbrettd7655fr4n2y
-      '@next/font': 13.2.1
       '@novu/node': 0.12.0
       '@novu/notification-center': 0.12.0_zula6vjvt3wdocc4mwcxqa6nzi
       '@spirit/api': link:../../packages/api
+      '@spirit/types': link:../../packages/types
       '@supabase/auth-helpers-nextjs': 0.5.4_h4fmw4dd6b3xkulak4k3c7hqqu
       '@supabase/auth-helpers-react': 0.3.1_h4fmw4dd6b3xkulak4k3c7hqqu
       '@supabase/auth-ui-react': 0.2.8_biqbaboplfbrettd7655fr4n2y
@@ -105,6 +111,7 @@ importers:
 
   packages/api:
     specifiers:
+      '@spirit/types': '*'
       '@trpc/client': ^10.13.0
       '@trpc/server': ^10.13.0
       eslint: ^8.32.0
@@ -112,6 +119,7 @@ importers:
       typescript: ^4.9.5
       zod: ^3.20.2
     dependencies:
+      '@spirit/types': link:../types
       '@trpc/client': 10.13.0_@trpc+server@10.13.0
       '@trpc/server': 10.13.0
       superjson: 1.12.2
@@ -129,6 +137,17 @@ importers:
       autoprefixer: 10.4.13_postcss@8.4.21
       postcss: 8.4.21
       tailwindcss: 3.2.7_postcss@8.4.21
+
+  packages/types:
+    specifiers:
+      '@supabase/supabase-js': 2.8.0
+      eslint: ^8.32.0
+      typescript: ^4.9.5
+    dependencies:
+      '@supabase/supabase-js': 2.8.0
+    devDependencies:
+      eslint: 8.34.0
+      typescript: 4.9.5
 
 packages:
 
@@ -811,10 +830,6 @@ packages:
       glob: 7.1.7
     dev: false
 
-  /@next/font/13.2.1:
-    resolution: {integrity: sha512-4sergLt7xp9+mZuKME/xM4tLlHGTcmL7naCq0qCTcAlof6NnttshYgiLOdhSiy0NcI+/yM3BjvdEk++O96UzTg==}
-    dev: false
-
   /@next/swc-android-arm-eabi/13.2.1:
     resolution: {integrity: sha512-Yua7mUpEd1wzIT6Jjl3dpRizIfGp9NR4F2xeRuQv+ae+SDI1Em2WyM9m46UL+oeW5GpMiEHoaBagr47RScZFmQ==}
     engines: {node: '>= 10'}
@@ -1245,6 +1260,14 @@ packages:
       fsevents: 2.3.2
     dev: false
 
+  /@supabase/functions-js/2.0.0:
+    resolution: {integrity: sha512-ozb7bds2yvf5k7NM2ZzUkxvsx4S4i2eRKFSJetdTADV91T65g4gCzEs9L3LUXSrghcGIkUaon03VPzOrFredqg==}
+    dependencies:
+      cross-fetch: 3.1.5
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@supabase/functions-js/2.0.0_encoding@0.1.13:
     resolution: {integrity: sha512-ozb7bds2yvf5k7NM2ZzUkxvsx4S4i2eRKFSJetdTADV91T65g4gCzEs9L3LUXSrghcGIkUaon03VPzOrFredqg==}
     dependencies:
@@ -1253,10 +1276,26 @@ packages:
       - encoding
     dev: false
 
+  /@supabase/gotrue-js/2.12.1:
+    resolution: {integrity: sha512-r8Jfq8FvP6q4kp7sI33X1RWfEEHzJFu9uM1Q6HgiDVkY89NNgqYy2kxaRGtidPFllND7vpcJUcpoWS5oq+4u0g==}
+    dependencies:
+      cross-fetch: 3.1.5
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@supabase/gotrue-js/2.12.1_encoding@0.1.13:
     resolution: {integrity: sha512-r8Jfq8FvP6q4kp7sI33X1RWfEEHzJFu9uM1Q6HgiDVkY89NNgqYy2kxaRGtidPFllND7vpcJUcpoWS5oq+4u0g==}
     dependencies:
       cross-fetch: 3.1.5_encoding@0.1.13
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
+  /@supabase/postgrest-js/1.4.1:
+    resolution: {integrity: sha512-aruqwV/aTggkM7OVv2JinCeXmRMKHJCZpkuS1nuoa0NgLw7g3NyILSyWOKYTBJ/PxE/zXtWsBhdxFzaaNz5uxg==}
+    dependencies:
+      cross-fetch: 3.1.5
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -1278,12 +1317,34 @@ packages:
       - supports-color
     dev: false
 
+  /@supabase/storage-js/2.3.0:
+    resolution: {integrity: sha512-YGWVCEYYYF3+UiyL8O4xC78N9n9paLbT0hHl8dmYAtd3DqyWtu5Eph9JTu0PWm+/29Zhns5TbhUZW4xpWjJfPQ==}
+    dependencies:
+      cross-fetch: 3.1.5
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@supabase/storage-js/2.3.0_encoding@0.1.13:
     resolution: {integrity: sha512-YGWVCEYYYF3+UiyL8O4xC78N9n9paLbT0hHl8dmYAtd3DqyWtu5Eph9JTu0PWm+/29Zhns5TbhUZW4xpWjJfPQ==}
     dependencies:
       cross-fetch: 3.1.5_encoding@0.1.13
     transitivePeerDependencies:
       - encoding
+    dev: false
+
+  /@supabase/supabase-js/2.8.0:
+    resolution: {integrity: sha512-uzf4J+qAKdUMhB2tnJl6BrQRUQBinwjJ2eWo2ZsDw9EUUP5JcHsxTamiq6p91DpqzmTIRg3xRAT+bItTzbfa0w==}
+    dependencies:
+      '@supabase/functions-js': 2.0.0
+      '@supabase/gotrue-js': 2.12.1
+      '@supabase/postgrest-js': 1.4.1
+      '@supabase/realtime-js': 2.6.0
+      '@supabase/storage-js': 2.3.0
+      cross-fetch: 3.1.5
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
     dev: false
 
   /@supabase/supabase-js/2.8.0_encoding@0.1.13:
@@ -2082,6 +2143,14 @@ packages:
       parse-json: 5.2.0
       path-type: 4.0.0
       yaml: 1.10.2
+    dev: false
+
+  /cross-fetch/3.1.5:
+    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
+    dependencies:
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /cross-fetch/3.1.5_encoding@0.1.13:
@@ -3903,6 +3972,18 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /node-fetch/2.6.7:
+    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+    dependencies:
+      whatwg-url: 5.0.0
     dev: false
 
   /node-fetch/2.6.7_encoding@0.1.13:
