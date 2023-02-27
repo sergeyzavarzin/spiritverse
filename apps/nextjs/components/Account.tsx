@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { Fragment } from "react";
-import { useSupabase } from "./SupabaseProvider";
+import { useSupabase } from "../contexts/SupabaseProvider";
 
 export const Account = () => {
   const { supabase, session } = useSupabase();

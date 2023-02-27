@@ -36,12 +36,17 @@ importers:
       '@next/font': 13.2.1
       '@novu/node': ^0.12.0
       '@novu/notification-center': ^0.12.0
+      '@spirit/api': '*'
       '@supabase/auth-helpers-nextjs': 0.5.4
       '@supabase/auth-helpers-react': 0.3.1
       '@supabase/auth-ui-react': 0.2.8
       '@supabase/supabase-js': 2.8.0
       '@tanstack/react-query': 4.24.10
       '@tanstack/react-query-devtools': 4.24.10
+      '@trpc/client': ^10.13.0
+      '@trpc/next': ^10.13.0
+      '@trpc/react-query': ^10.13.0
+      '@trpc/server': ^10.13.0
       '@types/node': 18.14.1
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -66,12 +71,17 @@ importers:
       '@next/font': 13.2.1
       '@novu/node': 0.12.0
       '@novu/notification-center': 0.12.0_zula6vjvt3wdocc4mwcxqa6nzi
+      '@spirit/api': link:../../packages/api
       '@supabase/auth-helpers-nextjs': 0.5.4_h4fmw4dd6b3xkulak4k3c7hqqu
       '@supabase/auth-helpers-react': 0.3.1_h4fmw4dd6b3xkulak4k3c7hqqu
       '@supabase/auth-ui-react': 0.2.8_biqbaboplfbrettd7655fr4n2y
       '@supabase/supabase-js': 2.8.0_encoding@0.1.13
       '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-query-devtools': 4.24.10_636dldj5wfr5vkyyqzs5k363kq
+      '@trpc/client': 10.13.0_@trpc+server@10.13.0
+      '@trpc/next': 10.13.0_jclvnrsahv7cakwvrjb7ye6vca
+      '@trpc/react-query': 10.13.0_rdrc3kwtpssp5n4c2j5j4hbyvm
+      '@trpc/server': 10.13.0
       '@types/node': 18.14.1
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
@@ -95,15 +105,15 @@ importers:
 
   packages/api:
     specifiers:
-      '@trpc/client': ^10.9.0
-      '@trpc/server': ^10.9.0
+      '@trpc/client': ^10.13.0
+      '@trpc/server': ^10.13.0
       eslint: ^8.32.0
       superjson: 1.12.2
       typescript: ^4.9.5
       zod: ^3.20.2
     dependencies:
-      '@trpc/client': 10.12.0_@trpc+server@10.12.0
-      '@trpc/server': 10.12.0
+      '@trpc/client': 10.13.0_@trpc+server@10.13.0
+      '@trpc/server': 10.13.0
       superjson: 1.12.2
       zod: 3.20.6
     devDependencies:
@@ -1347,16 +1357,53 @@ packages:
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
-  /@trpc/client/10.12.0_@trpc+server@10.12.0:
-    resolution: {integrity: sha512-CUBRaE0FpYiRnPGkFB9oLD2cdFd5fSzQwPSR7/zXNKMjwdE+5P7q5mtgbh3bFey3lYidmpKDFgYRnl9Cz2Z7OQ==}
+  /@trpc/client/10.13.0_@trpc+server@10.13.0:
+    resolution: {integrity: sha512-r4KuN0os2J194lxg5jn4+o3uNlqunLFYptwTHcVW4Q0XGO0ZoTKLHuxT7c9IeDivkAs6G5oVEPiKhptkag36dQ==}
     peerDependencies:
-      '@trpc/server': 10.12.0
+      '@trpc/server': 10.13.0
     dependencies:
-      '@trpc/server': 10.12.0
+      '@trpc/server': 10.13.0
     dev: false
 
-  /@trpc/server/10.12.0:
-    resolution: {integrity: sha512-gD5FCNCIDgx1fuYbCfFQgIYT1HVUzsXtQUrvG+nTLBL19eWJctwHetWYB2b71NmfLvq/b+QSH1OzPq1WvsHeag==}
+  /@trpc/next/10.13.0_jclvnrsahv7cakwvrjb7ye6vca:
+    resolution: {integrity: sha512-Q4rnuuiSUXDYv34f8FNUKhEMQFgLJTTJean78YjhG3Aaci+r4sew4hPmRvDRut8fBpa+EtExq+dv1EUbzlXgJg==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.3.8
+      '@trpc/client': 10.13.0
+      '@trpc/react-query': ^10.8.0
+      '@trpc/server': 10.13.0
+      next: 13.2.1
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.13.0_@trpc+server@10.13.0
+      '@trpc/react-query': 10.13.0_rdrc3kwtpssp5n4c2j5j4hbyvm
+      '@trpc/server': 10.13.0
+      next: 13.2.1_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-ssr-prepass: 1.5.0_react@18.2.0
+    dev: false
+
+  /@trpc/react-query/10.13.0_rdrc3kwtpssp5n4c2j5j4hbyvm:
+    resolution: {integrity: sha512-y4jbojrDFdEl1KBejBoMWIofcUXDHQA8wf01eKMEDV7Jwc7lhq6R1dxYtKzeF+s5wqfnPWFOGZDmB3flzv07Dw==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.3.8
+      '@trpc/client': 10.13.0
+      '@trpc/server': 10.13.0
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 4.24.10_biqbaboplfbrettd7655fr4n2y
+      '@trpc/client': 10.13.0_@trpc+server@10.13.0
+      '@trpc/server': 10.13.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@trpc/server/10.13.0:
+    resolution: {integrity: sha512-d/bu6utCC4ALxhTJkolEPAHMOSuCAu3mG79TZswa6wD2ob0/Z3AIvBF/meeSTqDxe4tvXY78lQqOkQI81dgi/g==}
     dev: false
 
   /@trysound/sax/0.2.0:
@@ -4618,6 +4665,14 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react-ssr-prepass/1.5.0_react@18.2.0:
+    resolution: {integrity: sha512-yFNHrlVEReVYKsLI5lF05tZoHveA5pGzjFbFJY/3pOqqjGOmMmqx83N4hIjN2n6E1AOa+eQEUxs3CgRnPmT0RQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-textarea-autosize/8.3.4_pmekkgnqduwlme35zpnqhenc34:

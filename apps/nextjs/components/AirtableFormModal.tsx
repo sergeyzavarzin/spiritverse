@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { FC, Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { useSupabase } from './SupabaseProvider';
+import { Dialog, Transition } from "@headlessui/react";
+import { FC, Fragment } from "react";
+import { useSupabase } from "../contexts/SupabaseProvider";
 
 type Props = {
   onClose: () => void;
@@ -13,9 +13,12 @@ export const AirtableFormModal: FC<Props> = (props) => {
 
   const { session } = useSupabase();
 
-  const params = new URLSearchParams({ prefill_userId: session?.user?.id ?? '', hide_userId: 'true' });
+  const params = new URLSearchParams({
+    prefill_userId: session?.user?.id ?? "",
+    hide_userId: "true",
+  });
 
-  const frameLink = `${link ?? ''}?${params.toString()}`;
+  const frameLink = `${link ?? ""}?${params.toString()}`;
 
   return (
     <Transition show={Boolean(link)} as={Fragment}>
@@ -52,7 +55,7 @@ export const AirtableFormModal: FC<Props> = (props) => {
                   src={frameLink}
                   width="100%"
                   height="533"
-                  style={{ width: '33vw' }}
+                  style={{ width: "33vw" }}
                 />
               </Dialog.Panel>
             </div>

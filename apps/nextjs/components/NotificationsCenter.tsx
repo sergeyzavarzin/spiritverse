@@ -7,7 +7,7 @@ import {
   PopoverNotificationCenter,
 } from "@novu/notification-center";
 import { useRouter } from "next/navigation";
-import { useSupabase } from "./SupabaseProvider";
+import { useSupabase } from "../contexts/SupabaseProvider";
 
 export const NotificationsCenter = () => {
   const router = useRouter();

@@ -1,7 +1,9 @@
-'use client';
+"use client";
 
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
-import { useSupabase } from './SupabaseProvider';
+import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
+import * as process from "process";
+import { useSupabase } from "../contexts/SupabaseProvider";
+import { getBaseUrl } from "../utils/getBaseUrl";
 
 export default function Login() {
   const { supabase } = useSupabase();
@@ -10,14 +12,18 @@ export default function Login() {
   // therefore, it can safely be used to conditionally render
   // SSR pages without issues with hydration
   return (
-    <div className="w-full h-[100vh] flex items-center justify-center flex-col gap-2.5">
+    <div className="flex h-[100vh] w-full flex-col items-center justify-center gap-2.5">
       <Auth
         theme="dark"
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
         onlyThirdPartyProviders
-        providers={['google']}
-        redirectTo={process.env.NEXT_PUBLIC_REDIRECT_URL ?? 'https://spiritverse.vercel.app'}
+        providers={["google", "discord", "twitch"]}
+        redirectTo={
+          process.env.NODE_ENV !== "development"
+            ? getBaseUrl()
+            : "http://localhost:3000"
+        }
       />
     </div>
   );

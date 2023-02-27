@@ -1,19 +1,36 @@
-import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
-import cn from 'classnames';
-import { PropsWithChildren } from 'react';
+import type { SupabaseClient } from "@supabase/auth-helpers-nextjs";
+import cn from "classnames";
+import { PropsWithChildren } from "react";
+import { BattleButton } from "../components/BattleButton";
+import { BattleContextProvider } from "../components/BattleContext";
+import { Header } from "../components/Header";
+import { Hero } from "../components/Hero";
+import Login from "../components/Login";
+import SupabaseListener from "../components/SupabaseListener";
+import SupabaseProvider from "../contexts/SupabaseProvider";
+import { TRPCProvider } from "../contexts/TRPCProvider";
+import { fontTTInterphases } from "../fonts";
+import "../styles/globals.css";
+import type { Database } from "../types/supabase";
+import { createServerClient } from "../utils/supabase-server";
 
-import { BattleButton } from '../components/BattleButton';
-import { BattleContextProvider } from '../components/BattleContext';
-import { Header } from '../components/Header';
-import { Hero } from '../components/Hero';
-import Login from '../components/Login';
-import { ReactQueryProvider } from '../components/ReactQueryProvider';
-import SupabaseListener from '../components/SupabaseListener';
-import SupabaseProvider from '../components/SupabaseProvider';
-import { fontTTInterphases } from '../fonts';
-import '../styles/globals.css';
-import type { Database } from '../types/supabase';
-import { createServerClient } from '../utils/supabase-server';
+// Next.js 13.2 new metadata definition standard (https://beta.nextjs.org/docs/api-reference/metadata)
+export const metadata = {
+  title: {
+    default: "Spiritverse",
+    template: "%s | Spiritverse",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    // shortcut: "/shortcut-icon.png",
+    // apple: "/apple-icon.png",
+    other: {
+      // rel: "apple-touch-icon-precomposed",
+      url: "/favicon.ico",
+    },
+  },
+  description: "Welcome to Spiritverse",
+};
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
 
@@ -35,12 +52,19 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   // const userCharacters = await getUserCharacters(); // TODO: get characters from ssr
 
   return (
-    <html lang="en">
-      <head />
-      <body className={cn(fontTTInterphases.className, 'mx-8 bg-bg text-white')}>
-        <ReactQueryProvider>
-          <SupabaseProvider session={session}>
-            <SupabaseListener serverAccessToken={session?.access_token} />
+    <TRPCProvider>
+      <SupabaseProvider session={session}>
+        <SupabaseListener serverAccessToken={session?.access_token} />
+        <html lang="en">
+          <head>
+            <meta
+              content="width=device-width, initial-scale=1"
+              name="viewport"
+            />
+          </head>
+          <body
+            className={cn(fontTTInterphases.className, "bg-bg mx-8 text-white")}
+          >
             {session ? (
               <BattleContextProvider>
                 <Header />
@@ -53,9 +77,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             ) : (
               <Login />
             )}
-          </SupabaseProvider>
-        </ReactQueryProvider>
-      </body>
-    </html>
+          </body>
+        </html>
+      </SupabaseProvider>
+    </TRPCProvider>
   );
 }
