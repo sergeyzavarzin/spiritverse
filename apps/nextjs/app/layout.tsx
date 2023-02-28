@@ -3,8 +3,6 @@ import type { SupabaseClient } from "@supabase/auth-helpers-nextjs";
 import cn from "classnames";
 // import type { Metadata } from "next";
 import { PropsWithChildren } from "react";
-import { BattleButton } from "../components/BattleButton";
-import { BattleContextProvider } from "../components/BattleContext";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import Login from "../components/Login";
@@ -65,17 +63,19 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             />
           </head>
           <body
-            className={cn(fontTTInterphases.className, "bg-bg mx-8 text-white")}
+            className={cn(
+              fontTTInterphases.className,
+              "bg-bg mx-8 pb-6 text-white",
+            )}
           >
             {session ? (
-              <BattleContextProvider>
+              <>
                 <Header />
                 <main className="relative grid grid-cols-2 gap-8">
                   <Hero />
                   {children}
-                  <BattleButton />
                 </main>
-              </BattleContextProvider>
+              </>
             ) : (
               <Login />
             )}

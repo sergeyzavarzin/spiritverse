@@ -8,10 +8,6 @@ import { FC } from "react";
 const nav = [
   {
     pathname: "/",
-    label: "Сражения",
-  },
-  {
-    pathname: "/tasks",
     label: "Задания",
   },
   {

@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import { FC } from 'react';
-import { Logo } from './Logo';
-import { Nav } from './Nav';
-import { AccountStats } from './AccountStats';
+import { FC } from "react";
+import { AccountStats } from "./AccountStats";
+import { Logo } from "./Logo";
+import { Nav } from "./Nav";
 
 export const Header: FC = () => {
   return (
-    <header
-      className="mt-6 mb-5 flex h-20 items-center justify-between rounded-2xl border border-solid border-border px-5">
+    <header className="border-border mb-5 flex h-20 items-center justify-between rounded-2xl border border-solid px-5">
       <Logo />
       <Nav />
       <AccountStats />

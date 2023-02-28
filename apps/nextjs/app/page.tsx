@@ -1,5 +1,5 @@
-import { Battle } from '../components/Battle';
+import { TasksList } from "./tasks/TasksList";
 
 export default function IndexPage() {
-  return <Battle />;
+  return <TasksList />;
 }
