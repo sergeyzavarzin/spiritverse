@@ -16,23 +16,27 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint && manypkg check",
     "type-check": "turbo type-check",
-    "gen-supabase-types": "pnpm --filter types gen-supabase-types"
+    "gen-supabase-types": "pnpm --filter types gen-supabase-types",
+    "supabase:up": "supabase init && supabase link --project-ref tceuznbeyikhmpfbyobw && supabase start && supabase db reset"
   },
   "dependencies": {
     "@manypkg/cli": "^0.20.0",
+    "@supabase/auth-helpers-nextjs": "0.5.4",
+    "@supabase/auth-helpers-react": "0.3.1",
+    "@supabase/supabase-js": "2.8.0",
     "@types/eslint": "^8.21.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "prettier": "^2.8.3",
-    "prettier-plugin-tailwindcss": "^0.2.2",
     "prettier-plugin-organize-imports": "^3.2.2",
+    "prettier-plugin-tailwindcss": "^0.2.2",
     "turbo": "^1.7.4",
-    "typescript": "^4.9.5",
-    "@supabase/auth-helpers-nextjs": "0.5.4",
-    "@supabase/auth-helpers-react": "0.3.1",
-    "@supabase/supabase-js": "2.8.0"
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "supabase": "^1.41.0"
   },
   "pnpm": {
     "packageExtensions": {

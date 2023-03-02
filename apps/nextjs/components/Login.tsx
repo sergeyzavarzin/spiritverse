@@ -8,6 +8,11 @@ import { getBaseUrl } from "../utils/getBaseUrl";
 export default function Login() {
   const { supabase } = useSupabase();
 
+  const redirectUrl =
+    process.env.NODE_ENV !== "development"
+      ? getBaseUrl()
+      : "http://localhost:3000";
+
   // this `session` is from the root loader - server-side
   // therefore, it can safely be used to conditionally render
   // SSR pages without issues with hydration
@@ -19,11 +24,7 @@ export default function Login() {
         appearance={{ theme: ThemeSupa }}
         onlyThirdPartyProviders
         providers={["google", "discord", "twitch"]}
-        redirectTo={
-          process.env.NODE_ENV !== "development"
-            ? getBaseUrl()
-            : "http://localhost:3000"
-        }
+        redirectTo={redirectUrl}
       />
     </div>
   );
