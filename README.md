@@ -72,14 +72,28 @@ supabase link --project-ref $PROJECT_ID
 supabase start
 ```
 
-#### Apply existing migrations to database
+### Migrations
+
+#### Create a new migration file
+
+```bash
+supabase db diff -f <new_migration_file_name>
+```
+
+#### Reset database to latest migration
 
 ```bash
 supabase db reset
 ```
 
+#### Push new migrations to database
+
+```bash
+supabase db push
+```
+
 ### Generate types for supabase
 
 ```bash
-npx supabase gen types typescript --project-id $PROJECT_ID --schema public > types/supabase.ts
+npx supabase gen types typescript --project-id $PROJECT_ID --schema public > packages/types/supabase.ts
 ```
