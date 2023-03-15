@@ -74,16 +74,16 @@ supabase start
 
 ### Migrations
 
-#### Create a new migration file
-
-```bash
-supabase db diff -f <new_migration_file_name>
-```
-
 #### Reset database to latest migration
 
 ```bash
 supabase db reset
+```
+
+#### Create a new migration file
+
+```bash
+supabase db diff -f <new_migration_file_name>
 ```
 
 #### Push new migrations to database
